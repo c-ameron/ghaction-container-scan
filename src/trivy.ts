@@ -127,7 +127,9 @@ async function scanFormat(format: ScanFormat, opts: ScanOptions): Promise<string
   core.info(`${opts.Inputs.args}`)
 
   if (opts.Inputs.args) {
-    scanArgs.concat(opts.Inputs.args);
+    opts.Inputs.args.forEach((arg) => {
+      scanArgs.push(arg);
+    });
   }
 
   if (opts.Inputs.image) {
