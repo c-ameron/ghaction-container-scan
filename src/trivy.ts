@@ -100,7 +100,6 @@ async function scanSarif(opts: ScanOptions): Promise<string> {
 
 async function scanFormat(format: ScanFormat, opts: ScanOptions): Promise<string> {
   core.info(`\nStarting scan (${format} format)\n=============================`);
-  core.info(`\n\n\n\nis this working?\n\n\n\n`)
 
   if (format == ScanFormat.Sarif && !opts.Inputs.dockerfile) {
     core.warning('Dockerfile not provided. Skipping sarif scan result.');
@@ -124,22 +123,20 @@ async function scanFormat(format: ScanFormat, opts: ScanOptions): Promise<string
       scanArgs.push('--format', 'sarif');
       break;
   }
+
+  core.info(`${opts.Inputs.args}`)
+
+  if (opts.Inputs.args) {
+    scanArgs.concat(opts.Inputs.args);
+  }
+
   if (opts.Inputs.image) {
     scanArgs.push(opts.Inputs.image);
   } else if (opts.Inputs.tarball) {
     scanArgs.push('--input', opts.Inputs.tarball);
   }
-  core.info('am I alive?')
-  core.warning('elivs is that you?')
-  core.info(`${opts.Inputs.args}`)
 
-  if (opts.Inputs.args) {
-    opts.Inputs.args.forEach((arg) => {
-      console.log(arg);
-      core.info(arg);
-      scanArgs.push(arg);
-    });
-  }
+
 
   return await exec
     .getExecOutput(opts.Bin, scanArgs, {
