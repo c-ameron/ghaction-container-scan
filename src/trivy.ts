@@ -108,7 +108,18 @@ async function scanFormat(format: ScanFormat, opts: ScanOptions): Promise<string
 
   const resFile = path.join(context.tmpDir(), `result.${format}`).split(path.sep).join(path.posix.sep);
 
-  const scanArgs: Array<string> = ['image', '--no-progress', '--output', resFile];
+  const scanArgs: Array<string> = ['image'];
+
+  core.info(`${opts.Inputs.args}`)
+
+  if (opts.Inputs.args) {
+    opts.Inputs.args.forEach((arg) => {
+      scanArgs.push(arg);
+    });
+  }
+
+  scanArgs.push('--no-progress', '--output', resFile);
+
   if (opts.Inputs.severity) {
     scanArgs.push('--severity', opts.Inputs.severity);
   }
@@ -122,14 +133,6 @@ async function scanFormat(format: ScanFormat, opts: ScanOptions): Promise<string
     case ScanFormat.Sarif:
       scanArgs.push('--format', 'sarif');
       break;
-  }
-
-  core.info(`${opts.Inputs.args}`)
-
-  if (opts.Inputs.args) {
-    opts.Inputs.args.forEach((arg) => {
-      scanArgs.push(arg);
-    });
   }
 
   if (opts.Inputs.image) {
