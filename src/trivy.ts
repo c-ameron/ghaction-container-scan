@@ -128,6 +128,14 @@ async function scanFormat(format: ScanFormat, opts: ScanOptions): Promise<string
   } else if (opts.Inputs.tarball) {
     scanArgs.push('--input', opts.Inputs.tarball);
   }
+  console.log(opts.Inputs.args)
+
+  if (opts.Inputs.args) {
+    opts.Inputs.args.forEach((arg) => {
+      console.log(arg);
+      scanArgs.push(arg);
+    });
+  }
 
   return await exec
     .getExecOutput(opts.Bin, scanArgs, {

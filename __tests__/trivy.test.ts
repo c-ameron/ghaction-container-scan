@@ -85,4 +85,21 @@ describe('scan', () => {
     expect(scanResult.sarif).not.toBeUndefined();
     expect(scanResult.vulns).not.toBeUndefined();
   }, 500000);
+  it('scans alpine:3.9 image with extra args', async () => {
+    const trivyBin = await trivy.install('latest');
+    expect(fs.existsSync(trivyBin)).toBe(true);
+    const scanResult = await trivy.scan({
+      Bin: trivyBin,
+      Inputs: {
+        trivyVersion: 'latest',
+        image: 'alpine:3.9',
+        dockerfile: path.join(__dirname, 'fixtures', 'Dockerfile'),
+        args: ['--slow','--debug']
+      }
+    });
+    expect(scanResult.table).not.toBeUndefined();
+    expect(scanResult.json).not.toBeUndefined();
+    expect(scanResult.sarif).not.toBeUndefined();
+    expect(scanResult.vulns).not.toBeUndefined();
+  }, 500000);
 });

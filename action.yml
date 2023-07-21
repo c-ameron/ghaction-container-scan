@@ -30,6 +30,9 @@ inputs:
     description: 'Create GitHub annotations in your workflow for vulnerabilities discovered'
     default: 'false'
     required: false
+  args:
+    description: 'Additional list of arguments to pass to trivy'
+    required: false
   github_token:
     description: 'GitHub Token as provided by secrets'
     default: ${{ github.token }}
