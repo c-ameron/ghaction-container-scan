@@ -118,7 +118,7 @@ async function scanFormat(format: ScanFormat, opts: ScanOptions): Promise<string
     });
   }
 
-  scanArgs.push('--no-progress', '--output', resFile);
+  scanArgs.push('--exit-code 1','--no-progress', '--output', resFile);
 
   if (opts.Inputs.severity) {
     scanArgs.push('--severity', opts.Inputs.severity);
