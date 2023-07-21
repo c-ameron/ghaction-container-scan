@@ -100,6 +100,7 @@ async function scanSarif(opts: ScanOptions): Promise<string> {
 
 async function scanFormat(format: ScanFormat, opts: ScanOptions): Promise<string> {
   core.info(`\nStarting scan (${format} format)\n=============================`);
+  core.info(`\n\n\n\nis this working?\n\n\n\n`)
 
   if (format == ScanFormat.Sarif && !opts.Inputs.dockerfile) {
     core.warning('Dockerfile not provided. Skipping sarif scan result.');
