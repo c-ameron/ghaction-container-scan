@@ -128,11 +128,12 @@ async function scanFormat(format: ScanFormat, opts: ScanOptions): Promise<string
   } else if (opts.Inputs.tarball) {
     scanArgs.push('--input', opts.Inputs.tarball);
   }
-  console.log(opts.Inputs.args)
+  core.info(`${opts.Inputs.args}`)
 
   if (opts.Inputs.args) {
     opts.Inputs.args.forEach((arg) => {
       console.log(arg);
+      core.info(arg);
       scanArgs.push(arg);
     });
   }
