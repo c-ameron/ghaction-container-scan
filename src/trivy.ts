@@ -128,6 +128,8 @@ async function scanFormat(format: ScanFormat, opts: ScanOptions): Promise<string
   } else if (opts.Inputs.tarball) {
     scanArgs.push('--input', opts.Inputs.tarball);
   }
+  core.info('am I alive?')
+  core.warning('elivs is that you?')
   core.info(`${opts.Inputs.args}`)
 
   if (opts.Inputs.args) {
